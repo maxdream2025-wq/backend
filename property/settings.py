@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os
 
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'news',
     'testimonial',
     'inquiry',
+    'newsletter',
+    'contact'
 ]
 
 MIDDLEWARE = [

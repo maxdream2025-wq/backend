@@ -2,18 +2,10 @@ from rest_framework import viewsets, generics
 from .models import News
 from .serializers import NewsSerializer
 
-
 class NewsViewSet(viewsets.ModelViewSet):
     queryset = News.objects.all().order_by('-date')
     serializer_class = NewsSerializer
-    lookup_field = 'slug'
-
-
-class NewsDetailBySlugView(generics.RetrieveAPIView):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
-    lookup_field = 'slug'
-
+    lookup_field = 'slug'   # all routes use slug
 
 class RelatedNewsBySlugView(generics.ListAPIView):
     serializer_class = NewsSerializer
@@ -30,5 +22,3 @@ class RelatedNewsBySlugView(generics.ListAPIView):
             except ValueError:
                 pass
         return queryset
-
-

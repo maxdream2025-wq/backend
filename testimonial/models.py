@@ -6,6 +6,7 @@ class Testimonial(models.Model):
     rating = models.PositiveSmallIntegerField()
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(blank=True, null=True)
 
     class Meta:
         ordering = ['-created_at']

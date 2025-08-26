@@ -7,6 +7,8 @@ urlpatterns = [
     path('api/v1/', include('news.urls')),
     path('api/v1/', include('testimonial.urls')),
     path('api/v1/', include('inquiry.urls')),
+    path('api/v1/newsletter/', include('newsletter.urls')),
+    path('api/v1/contact/', include('contact.urls')),
 ]
 
 if settings.DEBUG:

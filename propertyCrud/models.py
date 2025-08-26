@@ -6,7 +6,8 @@ class PropertyCategory(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to="categories/", null=True, blank=True)
     property_category = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True, null=True)  # allow null at first
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    developer = models.BooleanField(default=False)  # <-- Add this line
 
     def save(self, *args, **kwargs):
         if not self.slug:

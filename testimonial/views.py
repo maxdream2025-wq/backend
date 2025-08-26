@@ -7,6 +7,7 @@ class TestimonialListCreateView(generics.ListCreateAPIView):
     queryset = Testimonial.objects.all()
     serializer_class = TestimonialSerializer
 
-from django.shortcuts import render
-
-# Create your views here.
+class TestimonialDeleteView(generics.DestroyAPIView):
+    queryset = Testimonial.objects.all()
+    serializer_class = TestimonialSerializer
+    lookup_field = "id"
