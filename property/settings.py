@@ -7,6 +7,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -24,9 +25,6 @@ ALLOWED_HOSTS = [
     '.onrender.com',
 ]
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,9 +41,16 @@ INSTALLED_APPS = [
     'testimonial',
     'inquiry',
     'newsletter',
-    'contact'
+    'contact',
+    'cloudinary',
+    'cloudinary_storage',
 ]
-
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'Root',
+    'API_KEY': '126526875897417',
+    'API_SECRET': 'FuVOPT7BdT2nPLi2JhrQrtcQe7k',
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -87,7 +92,11 @@ DATABASES = {
         # Replace this value with your local database's connection string.
         default='postgresql://my_django_db_35p8_user:f8P1fsdItxyLEV0zz4URMO8EjulmnUbS@dpg-d2o3n2ur433s73at4neg-a.oregon-postgres.render.com/my_django_db_35p8',
         conn_max_age=600
-    )
+    ),
+    'sqlite_export': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
 }
 
 # Password validation

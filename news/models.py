@@ -6,7 +6,7 @@ class News(models.Model):
     desc = models.TextField()
     date = models.DateField()
     image = models.ImageField(upload_to="news/", null=True, blank=True)
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     feature = models.BooleanField(default=False)  # <-- Added field
 
     def save(self, *args, **kwargs):
