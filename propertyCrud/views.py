@@ -1,6 +1,7 @@
 # property/views.py
 
 from rest_framework import viewsets, generics, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import PropertyCategory, Property
 from .serializers import PropertyCategorySerializer, PropertySerializer
@@ -17,6 +18,31 @@ class PropertyCategoryViewSet(viewsets.ModelViewSet):
 class PropertyViewSet(viewsets.ModelViewSet):
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
+
+    def create(self, request, *args, **kwargs):
+        # Support both single-object and array payloads on /property/
+        if isinstance(request.data, list):
+            serializer = self.get_serializer(data=request.data, many=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers({})
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return super().create(request, *args, **kwargs)
+
+    @action(detail=False, methods=["post"], url_path="bulk")
+    def bulk_create(self, request, *args, **kwargs):
+        # Accepts a JSON array of property objects (application/json)
+        if not isinstance(request.data, list):
+            return Response(
+                {"detail": "Expected a JSON array."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer = self.get_serializer(data=request.data, many=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers({})
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 # Single property by slug
@@ -67,8 +93,10 @@ class FindPropertyView(generics.ListAPIView):
         # Apply location filter (required)
         if location:
             queryset = queryset.filter(
-                Q(location__icontains=location) | 
-                Q(location_search__icontains=location)
+                Q(location__icontains=location)
+                | Q(category__title__icontains=location)
+                | Q(category__property_category__icontains=location)
+                | Q(category__slug__icontains=location)
             )
 
         # Apply optional filters
@@ -76,13 +104,16 @@ class FindPropertyView(generics.ListAPIView):
             queryset = queryset.filter(property_type__icontains=property_type)
 
         if user_type:
-            queryset = queryset.filter(user_type__contains=[user_type])
+            # user_type stored as CharField (e.g., "Investor,End User")
+            queryset = queryset.filter(user_type__icontains=user_type)
 
         if bedroom:
-            queryset = queryset.filter(bedroom__contains=[bedroom])
+            # bedroom stored as CSV string; use icontains for simple match
+            queryset = queryset.filter(bedroom__icontains=bedroom)
 
         if bathroom:
-            queryset = queryset.filter(bathroom__contains=[bathroom])
+            # bathroom stored as CSV string; use icontains for simple match
+            queryset = queryset.filter(bathroom__icontains=bathroom)
 
         if completion_status:
             queryset = queryset.filter(status__icontains=completion_status)

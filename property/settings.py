@@ -133,3 +133,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email (SMTP) settings
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'no-reply@example.com')
+
+# Notification recipients (override via env)
+EMAIL_TO_SALES = os.environ.get('EMAIL_TO_SALES', EMAIL_HOST_USER or 'sales@example.com')
+EMAIL_TO_NEWSLETTER = os.environ.get('EMAIL_TO_NEWSLETTER', EMAIL_HOST_USER or 'newsletter@example.com')
+EMAIL_TO_INQUIRY = os.environ.get('EMAIL_TO_INQUIRY', EMAIL_HOST_USER or 'inquiry@example.com')

@@ -24,23 +24,27 @@ class Property(models.Model):
     property_sub_heading = models.CharField(max_length=255)
     property_desc = models.TextField()
     location = models.CharField(max_length=255)
-    location_search = models.CharField(max_length=255)
     property_type = models.CharField(max_length=100)
     completion_date = models.CharField(max_length=50)
     payment_plan = models.CharField(max_length=50)
     starting_price = models.DecimalField(max_digits=10, decimal_places=2)
-    property_gallery = models.ImageField(upload_to="properties/")
-    property_type_search = models.JSONField(default=list)
-    user_type = models.JSONField(default=list)
-    bedroom = models.JSONField(default=list)
-    bathroom = models.JSONField(default=list)
+    property_gallery = models.ImageField(upload_to="properties/", blank=True, null=True)
+    bedroom = models.CharField(max_length=255)
+    bathroom = models.CharField(max_length=255)
     area = models.JSONField(default=dict)
     status = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True, blank=True, null=True)  # allow null
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.property_name)
+        if not self.slug and self.property_name:
+            base_slug = slugify(self.property_name)
+            slug_candidate = base_slug
+            i = 1
+            from .models import Property as PropertyModel
+            while PropertyModel.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+                slug_candidate = f"{base_slug}-{i}"
+                i += 1
+            self.slug = slug_candidate
         super().save(*args, **kwargs)
 
     def __str__(self):
