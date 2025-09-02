@@ -12,9 +12,9 @@ import cloudinary.uploader
 import cloudinary.api
 
 cloudinary.config(
-    cloud_name="remax-uae",  # Changed from "Root" to a proper cloud name
-    api_key="126526875897417",
-    api_secret="FuVOPT7BdT2nPLi2JhrQrtcQe7k"
+    cloud_name="dkjpnznbf",  # Your actual cloud name from dashboard
+    api_key="342237737429874",  # Your actual API key from dashboard
+    api_secret="FuVOPT7BdT2nPLi2JhrQrtcQe7k"  # You need to reveal your actual API secret
 )
 
 # Media files configuration - now using Cloudinary
@@ -61,9 +61,9 @@ INSTALLED_APPS = [
 # Cloudinary Storage Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'remax-uae',  # Changed from "Root" to match the cloudinary.config
-    'API_KEY': '126526875897417',
-    'API_SECRET': 'FuVOPT7BdT2nPLi2JhrQrtcQe7k',
+    'CLOUD_NAME': 'dkjpnznbf',  # Your actual cloud name from dashboard
+    'API_KEY': '342237737429874',  # Your actual API key from dashboard
+    'API_SECRET': 'Ri8sum7h-eoYmforhXYlNHZ5Bu8',  # You need to reveal your actual API secret
     'MEDIA_TAG': 'remax_media',
     'INVALID_VIDEO_ERROR_MESSAGE': 'Please upload a valid video file.',
     'STATIC_TAG': 'remax_static',
