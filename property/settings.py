@@ -13,8 +13,8 @@ import cloudinary.api
 
 cloudinary.config(
     cloud_name="dkjpnznbf",  # Your actual cloud name from dashboard
-    api_key="342237737429874",  # Your actual API key from dashboard
-    api_secret="FuVOPT7BdT2nPLi2JhrQrtcQe7k"  # You need to reveal your actual API secret
+    api_key="342237737429874",  # Using the "Root" API key that matches your secret
+    api_secret="Ri8sum7h-eoYmforhXYlNHZ5Bu8"  # Your actual API secret
 )
 
 # Media files configuration - now using Cloudinary
@@ -62,8 +62,8 @@ INSTALLED_APPS = [
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dkjpnznbf',  # Your actual cloud name from dashboard
-    'API_KEY': '342237737429874',  # Your actual API key from dashboard
-    'API_SECRET': 'Ri8sum7h-eoYmforhXYlNHZ5Bu8',  # You need to reveal your actual API secret
+    'API_KEY': '342237737429874',  # Using the "Root" API key that matches your secret
+    'API_SECRET': 'Ri8sum7h-eoYmforhXYlNHZ5Bu8',  # Your actual API secret
     'MEDIA_TAG': 'remax_media',
     'INVALID_VIDEO_ERROR_MESSAGE': 'Please upload a valid video file.',
     'STATIC_TAG': 'remax_static',
