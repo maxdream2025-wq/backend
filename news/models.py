@@ -1,13 +1,14 @@
 from django.db import models
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
 
 class News(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField()
     date = models.DateField()
-    image = models.ImageField(upload_to="news/", null=True, blank=True)
+    image = CloudinaryField('image', folder='news', null=True, blank=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
-    feature = models.BooleanField(default=False)  # <-- Added field
+    feature = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.title:

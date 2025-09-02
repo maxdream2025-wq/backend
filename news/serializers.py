@@ -5,3 +5,4 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = ['id', 'title', 'desc', 'date', 'image', 'slug', 'feature']
+        read_only_fields = ['slug']  # Slug is auto-generated

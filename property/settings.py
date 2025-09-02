@@ -6,9 +6,21 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_URL = '/media/'
+# Cloudinary Configuration
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
+cloudinary.config(
+    cloud_name="Root",
+    api_key="126526875897417",
+    api_secret="FuVOPT7BdT2nPLi2JhrQrtcQe7k"
+)
+
+# Media files configuration - now using Cloudinary
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -45,12 +57,25 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
 ]
+
+# Cloudinary Storage Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'Root',
     'API_KEY': '126526875897417',
     'API_SECRET': 'FuVOPT7BdT2nPLi2JhrQrtcQe7k',
+    'MEDIA_TAG': 'remax_media',
+    'INVALID_VIDEO_ERROR_MESSAGE': 'Please upload a valid video file.',
+    'STATIC_TAG': 'remax_static',
+    'STATIC_IMAGES_EXTENSIONS': ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+    'MAGIC_FILE_PATH': 'magic',
+    'STATIC_IMAGES_TRANSFORMATIONS': {
+        'format': 'auto',
+        'quality': 'auto',
+        'fetch_format': 'auto',
+    }
 }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -141,23 +166,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Email (SMTP) settings
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'no-reply@example.com')
-
-# Notification recipients (override via env)
-EMAIL_TO_SALES = os.environ.get('EMAIL_TO_SALES', EMAIL_HOST_USER or 'sales@example.com')
-EMAIL_TO_NEWSLETTER = os.environ.get('EMAIL_TO_NEWSLETTER', EMAIL_HOST_USER or 'newsletter@example.com')
-EMAIL_TO_INQUIRY = os.environ.get('EMAIL_TO_INQUIRY', EMAIL_HOST_USER or 'inquiry@example.com')
