@@ -12,7 +12,7 @@ import cloudinary.uploader
 import cloudinary.api
 
 cloudinary.config(
-    cloud_name="Root",
+    cloud_name="remax-uae",  # Changed from "Root" to a proper cloud name
     api_key="126526875897417",
     api_secret="FuVOPT7BdT2nPLi2JhrQrtcQe7k"
 )
@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 # Cloudinary Storage Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'Root',
+    'CLOUD_NAME': 'remax-uae',  # Changed from "Root" to match the cloudinary.config
     'API_KEY': '126526875897417',
     'API_SECRET': 'FuVOPT7BdT2nPLi2JhrQrtcQe7k',
     'MEDIA_TAG': 'remax_media',
