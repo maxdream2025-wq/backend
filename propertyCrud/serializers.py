@@ -5,6 +5,7 @@ import os
 import urllib.request
 from .models import PropertyCategory, Property
 from django.utils.text import slugify
+from django.db import models
 
 class PropertyCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,7 +15,27 @@ class PropertyCategorySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # Generate base slug from title
-        base_slug = slugify(validated_data['title'])
+        base_slug = slugify(validated_data.get('title', ''))
+        
+        # If no order specified, set it to the next available order
+        if 'order' not in validated_data or validated_data['order'] is None:
+            max_order = PropertyCategory.objects.aggregate(models.Max('order'))['order__max'] or 0
+            validated_data['order'] = max_order + 1
+        
+        # Generate unique slug
+        validated_data['slug'] = self.generate_unique_slug(base_slug)
+        
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        # Generate unique slug if title changed
+        if 'title' in validated_data and validated_data['title'] != instance.title:
+            base_slug = slugify(validated_data['title'])
+            validated_data['slug'] = self.generate_unique_slug(base_slug)
+        
+        return super().update(instance, validated_data)
+
+    def generate_unique_slug(self, base_slug):
         slug = base_slug
         i = 1
 
@@ -23,20 +44,7 @@ class PropertyCategorySerializer(serializers.ModelSerializer):
             slug = f"{base_slug}-{i}"
             i += 1
 
-        validated_data['slug'] = slug
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        # Optional: update slug if title changes
-        if 'title' in validated_data:
-            base_slug = slugify(validated_data['title'])
-            slug = base_slug
-            i = 1
-            while PropertyCategory.objects.filter(slug=slug).exclude(pk=instance.pk).exists():
-                slug = f"{base_slug}-{i}"
-                i += 1
-            validated_data['slug'] = slug
-        return super().update(instance, validated_data)
+        return slug
 
 
 class PropertySerializer(serializers.ModelSerializer):

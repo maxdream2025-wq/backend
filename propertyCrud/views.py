@@ -10,7 +10,7 @@ from decimal import Decimal
 
 # For CRUD on category
 class PropertyCategoryViewSet(viewsets.ModelViewSet):
-    queryset = PropertyCategory.objects.all()
+    queryset = PropertyCategory.objects.all().order_by('order')
     serializer_class = PropertyCategorySerializer
 
 
