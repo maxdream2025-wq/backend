@@ -1,30 +1,30 @@
 from django.contrib import admin
 from .models import News
+from django.utils.html import mark_safe
 
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'slug', 'feature', 'image_preview')
-    prepopulated_fields = {"slug": ("title",)}
+    list_display = ('title', 'feature', 'order', 'date', 'image_preview')
+    list_filter = ('feature', 'date')
+    list_editable = ('feature', 'order')
     search_fields = ('title', 'desc')
-    list_filter = ('date', 'feature')
-    list_editable = ('feature',)
+    prepopulated_fields = {'slug': ('title',)}
+    ordering = ('order', '-date')
     
     fieldsets = (
         ('Basic Information', {
             'fields': ('title', 'desc', 'date', 'slug')
         }),
-        ('Media & Features', {
-            'fields': ('image', 'feature'),
-            'classes': ('collapse',)
+        ('Media & Display', {
+            'fields': ('image', 'feature', 'order')
         }),
     )
-    
+
     def image_preview(self, obj):
         if obj.image:
-            return f'<img src="{obj.image.url}" style="max-height: 50px; max-width: 100px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;" />'
+            return mark_safe(f'<img src="{obj.image.url}" style="max-height: 50px; max-width: 50px;" />')
         return "No Image"
     image_preview.short_description = 'Image Preview'
-    image_preview.allow_tags = True
 
 

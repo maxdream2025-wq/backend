@@ -9,6 +9,9 @@ class News(models.Model):
     image = CloudinaryField('image', folder='news', null=True, blank=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     feature = models.BooleanField(default=False)
+    order = models.IntegerField(default=0, help_text="Order for display (lower numbers appear first)")
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.title:

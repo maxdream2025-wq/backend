@@ -6,7 +6,7 @@ from .models import News
 from .serializers import NewsSerializer
 
 class NewsViewSet(viewsets.ModelViewSet):
-    queryset = News.objects.all().order_by('-date')
+    queryset = News.objects.all().order_by('order', '-date')
     serializer_class = NewsSerializer
     lookup_field = 'slug'
     parser_classes = (MultiPartParser, FormParser)
