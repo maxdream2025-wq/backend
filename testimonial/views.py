@@ -38,10 +38,11 @@ class TestimonialListCreateView(generics.ListCreateAPIView):
                 
                 <hr>
                 <p><strong>Admin Actions:</strong></p>
-                <p>To approve this review, click: <a href="{settings.FRONTEND_URL}/admin/testimonials/approve/{testimonial.id}">Approve</a></p>
-                <p>To reject this review, click: <a href="{settings.FRONTEND_URL}/admin/testimonials/reject/{testimonial.id}">Reject</a></p>
+                <p>Please login to admin panel to review and approve this testimonial:</p>
+                <p><a href="{settings.FRONTEND_URL}/admin/login" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">Go to Admin Panel</a></p>
                 
-                <p>Or manage all reviews at: <a href="{settings.FRONTEND_URL}/admin">Admin Panel</a></p>
+                <p><strong>Review ID:</strong> #{testimonial.id}</p>
+                <p><strong>Reviewer:</strong> {testimonial.name}</p>
             </body>
             </html>
             """
