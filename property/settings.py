@@ -195,5 +195,8 @@ CONTACT_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
 # Career application notification email
 CAREER_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
 
+# CC email for all notifications
+CC_EMAIL = 'basatali326@gmail.com'
+
 # Frontend URL for email links
 FRONTEND_URL = 'https://remax-frontend-theta.vercel.app'

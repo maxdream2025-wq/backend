@@ -43,6 +43,7 @@ This is an automated notification from your RE/MAX UAE website.
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[settings.INQUIRY_NOTIFICATION_EMAIL],
                 fail_silently=False,
+                cc=[settings.CC_EMAIL],
             )
             print(f"Property inquiry notification sent to {settings.INQUIRY_NOTIFICATION_EMAIL}")
         except Exception as e:

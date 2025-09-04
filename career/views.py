@@ -50,7 +50,8 @@ This is an automated notification from your RE/MAX UAE website.
                     subject=admin_subject,
                     body=admin_message,
                     from_email=settings.EMAIL_HOST_USER,
-                    to=[settings.CAREER_NOTIFICATION_EMAIL]
+                    to=[settings.CAREER_NOTIFICATION_EMAIL],
+                    cc=[settings.CC_EMAIL]
                 )
                 
                 # Attach the CV file
@@ -65,6 +66,7 @@ This is an automated notification from your RE/MAX UAE website.
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[settings.CAREER_NOTIFICATION_EMAIL],
                     fail_silently=False,
+                    cc=[settings.CC_EMAIL],
                 )
                 print(f"Career application notification sent to {settings.CAREER_NOTIFICATION_EMAIL}")
         except Exception as e:
@@ -77,6 +79,7 @@ This is an automated notification from your RE/MAX UAE website.
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[settings.CAREER_NOTIFICATION_EMAIL],
                     fail_silently=False,
+                    cc=[settings.CC_EMAIL],
                 )
                 print(f"Fallback email sent to {settings.CAREER_NOTIFICATION_EMAIL}")
             except Exception as fallback_error:
