@@ -194,3 +194,6 @@ CONTACT_NOTIFICATION_EMAIL = 'basatali326@gmail.com'
 
 # Career application notification email
 CAREER_NOTIFICATION_EMAIL = 'basatali326@gmail.com'
+
+# Frontend URL for email links
+FRONTEND_URL = 'http://localhost:3000'
