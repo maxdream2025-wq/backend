@@ -184,16 +184,16 @@ EMAIL_HOST_PASSWORD = 'lssm roxh pksg zxcy'
 DEFAULT_FROM_EMAIL = 'cool.saa733@gmail.com'
 
 # Newsletter notification email
-NEWSLETTER_NOTIFICATION_EMAIL = 'basatali326@gmail.com'
+NEWSLETTER_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
 
 # Inquiry notification email
-INQUIRY_NOTIFICATION_EMAIL = 'basatali326@gmail.com'
+INQUIRY_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
 
 # Contact form notification email
-CONTACT_NOTIFICATION_EMAIL = 'basatali326@gmail.com'
+CONTACT_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
 
 # Career application notification email
-CAREER_NOTIFICATION_EMAIL = 'basatali326@gmail.com'
+CAREER_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
 
 # Frontend URL for email links
 FRONTEND_URL = 'https://remax-frontend-theta.vercel.app'
