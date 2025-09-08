@@ -184,16 +184,16 @@ EMAIL_HOST_PASSWORD = 'lssm roxh pksg zxcy'
 DEFAULT_FROM_EMAIL = 'cool.saa733@gmail.com'
 
 # Newsletter notification email
-NEWSLETTER_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
+NEWSLETTER_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
 
 # Inquiry notification email
-INQUIRY_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
+INQUIRY_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
 
 # Contact form notification email
-CONTACT_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
+CONTACT_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
 
 # Career application notification email
-CAREER_NOTIFICATION_EMAIL = 'ahmad.nasr@remax.ae'
+CAREER_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
 
 # CC email for all notifications
 CC_EMAIL = 'basatali326@gmail.com'
