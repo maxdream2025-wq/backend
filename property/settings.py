@@ -199,8 +199,5 @@ CC_EMAIL = 'basatali326@gmail.com'
 # Frontend URL for email links
 FRONTEND_URL = 'https://remax-frontend-theta.vercel.app'
 
-# Django REST Framework: Global Pagination (10 items per page)
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-}
+# Django REST Framework: No global pagination
+REST_FRAMEWORK = {}
