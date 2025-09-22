@@ -13,6 +13,17 @@ class PropertyCategoryViewSet(viewsets.ModelViewSet):
     queryset = PropertyCategory.objects.all().order_by('order')
     serializer_class = PropertyCategorySerializer
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        developer_param = self.request.query_params.get('developer')
+        if developer_param is not None:
+            val = developer_param.strip().lower()
+            if val in {"true", "1", "yes"}:
+                queryset = queryset.filter(developer=True)
+            elif val in {"false", "0", "no"}:
+                queryset = queryset.filter(developer=False)
+        return queryset
+
 
 # For CRUD on property
 class PropertyViewSet(viewsets.ModelViewSet):
