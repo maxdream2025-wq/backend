@@ -38,6 +38,7 @@ class Property(models.Model):
     area = models.JSONField(default=dict)
     status = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, blank=True, null=True)
+    developer = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.property_name:
