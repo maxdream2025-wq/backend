@@ -112,16 +112,16 @@ WSGI_APPLICATION = 'property.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://my_django_db_35p8_user:f8P1fsdItxyLEV0zz4URMO8EjulmnUbS@dpg-d2o3n2ur433s73at4neg-a.oregon-postgres.render.com/my_django_db_35p8',
-        conn_max_age=600
-    ),
-    'sqlite_export': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'remaxdb',
+        'USER': 'remaxuser',
+        'PASSWORD': 'Abcd.@1234567890',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
