@@ -28,12 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-qgto76gprzxhcq1gg5qvs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'remax-backend.onrender.com',
-    '.onrender.com',
-]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -113,12 +108,8 @@ WSGI_APPLICATION = 'property.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'remaxdb',
-        'USER': 'remaxuser',
-        'PASSWORD': 'Abcd.@1234567890',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
