@@ -144,7 +144,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-CORS_ALLOWED_ORIGINS = ['*']
+CORS_ALLOWED_ORIGINS = [
+    "https://remaxdreamuae.com",     # your production domain (https)
+    "http://72.60.211.107:3000",    # React dev server
+]
 CORS_ALLOW_ALL_ORIGINS = True
 
 
