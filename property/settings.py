@@ -108,10 +108,15 @@ WSGI_APPLICATION = 'property.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'remaxdb',         # your PostgreSQL database name
+        'USER': 'remaxuser',       # your PostgreSQL user
+        'PASSWORD': 'Abcd.@123456', # user password
+        'HOST': '72.60.211.107',       # or your VPS IP if remote
+        'PORT': '5432',            # default PostgreSQL port
     }
 }
+
 
 
 # Password validation
