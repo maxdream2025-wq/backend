@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'property.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'remaxdb',         # your PostgreSQL database name
         'USER': 'remaxuser',       # your PostgreSQL user
         'PASSWORD': 'Abcd.@123456', # user password
@@ -177,19 +177,19 @@ EMAIL_HOST_PASSWORD = 'lssm roxh pksg zxcy'
 DEFAULT_FROM_EMAIL = 'cool.saa733@gmail.com'
 
 # Newsletter notification email
-NEWSLETTER_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
+NEWSLETTER_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
 
 # Inquiry notification email
-INQUIRY_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
+INQUIRY_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
 
 # Contact form notification email
-CONTACT_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
+CONTACT_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
 
 # Career application notification email
-CAREER_NOTIFICATION_EMAIL = 'Mrahmednasr1983@gmail.com'
+CAREER_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
 
 # CC email for all notifications
-CC_EMAIL = 'basatali326@gmail.com'
+CC_EMAIL = 'basatali326@gmail.com' 
 
 # Frontend URL for email links
 FRONTEND_URL = 'https://remax-frontend-theta.vercel.app'

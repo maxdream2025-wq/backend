@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
+import uuid
 
 class PropertyCategory(models.Model):
     title = models.CharField(max_length=255)
@@ -12,10 +13,13 @@ class PropertyCategory(models.Model):
     order = models.IntegerField(default=0, help_text="Order for display (lower numbers appear first)")
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+    uuid = models.UUIDField(editable=False, unique=True, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        if not self.uuid:
+            self.uuid = uuid.uuid4()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -39,6 +43,7 @@ class Property(models.Model):
     status = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, blank=True, null=True)
     developer = models.CharField(max_length=255, blank=True, null=True)
+    uuid = models.UUIDField(editable=False, unique=True, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.property_name:
@@ -50,6 +55,8 @@ class Property(models.Model):
                 slug_candidate = f"{base_slug}-{i}"
                 i += 1
             self.slug = slug_candidate
+        if not self.uuid:
+            self.uuid = uuid.uuid4()
         super().save(*args, **kwargs)
 
     def __str__(self):
