@@ -112,25 +112,62 @@ class FindPropertyView(generics.ListAPIView):
 
         # Apply optional filters
         if property_type:
-            queryset = queryset.filter(property_type__icontains=property_type)
+            # More flexible property type matching
+            # Handle variations like "Apartment" vs "Apartments", "Villa" vs "Villas", etc.
+            if property_type.lower() == 'apartment':
+                queryset = queryset.filter(
+                    Q(property_type__icontains='apartment') | 
+                    Q(property_type__icontains='apartments')
+                )
+            elif property_type.lower() == 'villa':
+                queryset = queryset.filter(
+                    Q(property_type__icontains='villa') | 
+                    Q(property_type__icontains='villas')
+                )
+            elif property_type.lower() == 'townhouse':
+                queryset = queryset.filter(
+                    Q(property_type__icontains='townhouse') | 
+                    Q(property_type__icontains='townhouses')
+                )
+            else:
+                queryset = queryset.filter(property_type__icontains=property_type)
 
-        if user_type:
-            # user_type stored as CharField (e.g., "Investor,End User")
-            queryset = queryset.filter(user_type__icontains=user_type)
+        # Note: user_type field doesn't exist in Property model, so this filter is removed
+        # if user_type:
+        #     queryset = queryset.filter(user_type__icontains=user_type)
 
         if bedroom:
-            # bedroom stored as CSV string; use icontains for simple match
-            queryset = queryset.filter(bedroom__icontains=bedroom)
+            # More flexible bedroom matching
+            # Handle cases where bedroom might be stored as ranges like "1-3" or "1,2,3"
+            # If user selects "1", also match "1,2,3" or "1-3" ranges
+            if bedroom == "1":
+                queryset = queryset.filter(
+                    Q(bedroom__icontains='1') | 
+                    Q(bedroom__icontains='1,') |
+                    Q(bedroom__icontains='1-')
+                )
+            else:
+                queryset = queryset.filter(bedroom__icontains=bedroom)
 
         if bathroom:
-            # bathroom stored as CSV string; use icontains for simple match
-            queryset = queryset.filter(bathroom__icontains=bathroom)
+            # More flexible bathroom matching
+            # Handle cases where bathroom might be stored as ranges like "1-2" or "1,2,3"
+            # If user selects "1", also match "1,2,3" or "1-2" ranges
+            if bathroom == "1":
+                queryset = queryset.filter(
+                    Q(bathroom__icontains='1') | 
+                    Q(bathroom__icontains='1,') |
+                    Q(bathroom__icontains='1-')
+                )
+            else:
+                queryset = queryset.filter(bathroom__icontains=bathroom)
 
         if completion_status:
             queryset = queryset.filter(status__icontains=completion_status)
 
         if min_price:
             try:
+                # Prices in database are already in millions (e.g., 1.95 = 1.95M)
                 min_price_decimal = Decimal(min_price)
                 queryset = queryset.filter(starting_price__gte=min_price_decimal)
             except (ValueError, TypeError):
@@ -138,6 +175,7 @@ class FindPropertyView(generics.ListAPIView):
 
         if max_price:
             try:
+                # Prices in database are already in millions (e.g., 3.0 = 3.0M)
                 max_price_decimal = Decimal(max_price)
                 queryset = queryset.filter(starting_price__lte=max_price_decimal)
             except (ValueError, TypeError):
@@ -156,5 +194,58 @@ class FindPropertyView(generics.ListAPIView):
                 queryset = queryset.filter(area__max__lte=area_max_int)
             except (ValueError, TypeError):
                 pass
+
+        # If no results found with all filters, try with fewer filters to provide helpful suggestions
+        if not queryset.exists():
+            # Try without price filter first
+            queryset = Property.objects.filter(
+                Q(location__icontains=location)
+                | Q(category__title__icontains=location)
+                | Q(category__property_category__icontains=location)
+                | Q(category__slug__icontains=location)
+            )
+            
+            # Reapply other filters except price
+            if property_type:
+                if property_type.lower() == 'apartment':
+                    queryset = queryset.filter(
+                        Q(property_type__icontains='apartment') | 
+                        Q(property_type__icontains='apartments')
+                    )
+                elif property_type.lower() == 'villa':
+                    queryset = queryset.filter(
+                        Q(property_type__icontains='villa') | 
+                        Q(property_type__icontains='villas')
+                    )
+                elif property_type.lower() == 'townhouse':
+                    queryset = queryset.filter(
+                        Q(property_type__icontains='townhouse') | 
+                        Q(property_type__icontains='townhouses')
+                    )
+                else:
+                    queryset = queryset.filter(property_type__icontains=property_type)
+            
+            if bedroom:
+                if bedroom == "1":
+                    queryset = queryset.filter(
+                        Q(bedroom__icontains='1') | 
+                        Q(bedroom__icontains='1,') |
+                        Q(bedroom__icontains='1-')
+                    )
+                else:
+                    queryset = queryset.filter(bedroom__icontains=bedroom)
+            
+            if bathroom:
+                if bathroom == "1":
+                    queryset = queryset.filter(
+                        Q(bathroom__icontains='1') | 
+                        Q(bathroom__icontains='1,') |
+                        Q(bathroom__icontains='1-')
+                    )
+                else:
+                    queryset = queryset.filter(bathroom__icontains=bathroom)
+            
+            if completion_status:
+                queryset = queryset.filter(status__icontains=completion_status)
 
         return queryset.order_by('-starting_price')

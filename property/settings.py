@@ -151,9 +151,13 @@ USE_TZ = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://remaxdreamuae.com",     # your production domain (https)
+    "https://www.remaxdreamuae.com", # www version
     "http://72.60.211.107:3000",    # React dev server
+    "http://localhost:3000",         # local development
+    "http://72.60.211.107:3001", 
 ]
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -196,3 +200,11 @@ FRONTEND_URL = 'https://remax-frontend-theta.vercel.app'
 
 # Django REST Framework: No global pagination
 REST_FRAMEWORK = {}
+
+# Security settings for HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False  # Set to True if you want to force HTTPS redirects
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
