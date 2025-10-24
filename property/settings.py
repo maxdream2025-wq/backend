@@ -176,9 +176,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'cool.saa733@gmail.com'
+EMAIL_HOST_USER = 'info@remaxdreamuae.com'
 EMAIL_HOST_PASSWORD = 'lssm roxh pksg zxcy'
-DEFAULT_FROM_EMAIL = 'cool.saa733@gmail.com'
+DEFAULT_FROM_EMAIL = 'info@remaxdreamuae.com'
 
 # Newsletter notification email
 NEWSLETTER_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
@@ -192,11 +192,11 @@ CONTACT_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
 # Career application notification email
 CAREER_NOTIFICATION_EMAIL = 'info@remaxdreamuae.com'
 
-# CC email for all notifications
-CC_EMAIL = 'basatali326@gmail.com' 
+# CC email for all notifications - REMOVED
+# CC_EMAIL = 'basatali326@gmail.com' 
 
 # Frontend URL for email links
-FRONTEND_URL = 'https://remax-frontend-theta.vercel.app'
+FRONTEND_URL = 'https://remaxdreamuae.com'
 
 # Django REST Framework: No global pagination
 REST_FRAMEWORK = {}

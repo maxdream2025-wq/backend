@@ -56,7 +56,7 @@ class TestimonialListCreateView(generics.ListCreateAPIView):
                 recipient_list=[settings.CONTACT_NOTIFICATION_EMAIL],
                 html_message=html_message,
                 fail_silently=False,
-                cc=[settings.CC_EMAIL],
+                # cc=[settings.CC_EMAIL],  # Removed CC email
             )
         except Exception as e:
             print(f"Failed to send email notification: {e}")

@@ -36,7 +36,7 @@ This is an automated notification from your RE/MAX UAE website.
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[settings.NEWSLETTER_NOTIFICATION_EMAIL],
                 fail_silently=False,
-                cc=[settings.CC_EMAIL],
+                # cc=[settings.CC_EMAIL],  # Removed CC email
             )
             print(f"Newsletter subscription notification sent to {settings.NEWSLETTER_NOTIFICATION_EMAIL}")
         except Exception as e:
@@ -93,7 +93,7 @@ def send_test_email(request):
         getattr(settings, "INQUIRY_NOTIFICATION_EMAIL", None),
         getattr(settings, "CONTACT_NOTIFICATION_EMAIL", None),
         getattr(settings, "CAREER_NOTIFICATION_EMAIL", None),
-        getattr(settings, "CC_EMAIL", None),
+        # getattr(settings, "CC_EMAIL", None),  # Removed CC email
         extra_to,
     }
     recipients = [r for r in recipients if r]
